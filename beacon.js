@@ -6,7 +6,7 @@ function beacon(str, cb){
  let client = new WebTorrent()
 
  let buf = new Buffer.from(str)
- buf.name = appName
+ buf.name = str
  
  client.seed(buf, torrent => {
   // seeding
