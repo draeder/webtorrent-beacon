@@ -2,10 +2,10 @@ module.exports = beacon
 
 const WebTorrent = require('webtorrent')
 
-function beacon(appName, cb){
+function beacon(str, cb){
  let client = new WebTorrent()
 
- let buf = new Buffer.from(appName)
+ let buf = new Buffer.from(str)
  buf.name = appName
  
  client.seed(buf, torrent => {
@@ -31,7 +31,7 @@ function beacon(appName, cb){
     b = true
     cb(b)
    }
-   
+
    numPeers = torrent.numPeers
 
    torrent.on('noPeers', function (announceType) {
