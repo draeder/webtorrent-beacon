@@ -16,27 +16,31 @@ function beacon(str, cb){
  let b = false
 
  client.on('torrent', function (torrent) {
-  numPeers = torrent.numPeers
 
-  torrent.on('wire', ()=> {
-   b = true
-   cb(b)
-  })
-
-  let beacon = new WebTorrent()
-
-  beacon.add(torrent.infoHash, torrent => {
-
-   if(numPeers < torrent.numPeers){
-    b = true
-    cb(b)
-   }
+  if(torrent.ready){
 
    numPeers = torrent.numPeers
 
-   torrent.on('noPeers', function (announceType) {
-    console.log('no peers')
+   torrent.on('wire', ()=> {
+    b = true
+    cb(b)
    })
-  })
+ 
+   let beacon = new WebTorrent()
+ 
+   beacon.add(torrent.infoHash, torrent => {
+ 
+    if(torrent.ready){
+     if(numPeers < torrent.numPeers){
+      b = true
+      cb(b)
+     }
+  
+     numPeers = torrent.numPeers
+
+    }
+   })
+
+  }
  })
 }
