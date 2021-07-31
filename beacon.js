@@ -33,17 +33,16 @@ function Beacon(name, data, cb){
 
   let c = 0
   discovery.on('peer', function (peer) {
-   c++
    const peerAddress = { address: addrToIPPort(peer)[0], port: addrToIPPort(peer)[1] }
-   
+   c++
    if(c != 1){
     checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
-     console.log(peerAddress )
-     cb(true, c)
+     cb(true)
     }, err => {
      // connection was unsuccessful
     })
    }
+
   })
  })
 }

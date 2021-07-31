@@ -1,8 +1,5 @@
 # webtorrent-beacon
-Get a beacon when your webtorrent has a new peer
-
-##
-Creates a new webtorrent with your file name and data and sends a beacon whenever a new peer arrives on your torrent.
+Create new torrent and receive a beacon when a new peer arrives
 
 ## Install
 ```js
@@ -11,9 +8,9 @@ npm i webtorrent-beacon
 
 ## Usage
 ```js
-let Beacon = require('webtorrent-beacon')
+let Beacon = require('./beacon')
 
-let beacon = new Beacon('my filename.txt', 'my data', b => {
- console.log('My torrent has a new peer:', b)
+let beacon = new Beacon('my filename.txt', 'my sweet data', (beacon) => {
+ console.log('Torrent has a new peer:', beacon) // true
 })
 ```
