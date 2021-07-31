@@ -2,11 +2,9 @@ module.exports = Beacon
 
 const WebTorrent = require('webtorrent')
 
-let opts = {}
-
 function Beacon(str, cb){
 
- let server = new WebTorrent(opts)
+ let server = new WebTorrent()
 
  let buf = new Buffer.from(str)
  buf.name = str
@@ -29,7 +27,7 @@ function Beacon(str, cb){
     cb(b)
    })
  
-   let client = new WebTorrent(opts)
+   let client = new WebTorrent()
  
    client.add(torrent.infoHash, torrent => {
  
