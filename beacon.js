@@ -44,10 +44,13 @@ function Beacon(options, name, data, cb){
 
   let c = 0
   discovery.on('peer', function (peer) {
+
    const peerAddress = { address: addrToIPPort(peer)[0], port: addrToIPPort(peer)[1] }
 
    c++
-   if(c != 1){ // ignore self
+   if(c === 1){
+    peers.push(peerAddress) // add self to peers and ignore
+   } else {
     checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
 
      let found = peers.find(function(el) {
