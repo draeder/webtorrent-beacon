@@ -6,8 +6,6 @@ const Discovery = require('torrent-discovery')
 const addrToIPPort = require('addr-to-ip-port')
 const net = require('net')
 const Promise = require('bluebird')
-const _ = require('lodash')
-const { forEach } = require('lodash')
 
 function Beacon(options, name, data, cb){
 
