@@ -7,6 +7,7 @@ const addrToIPPort = require('addr-to-ip-port')
 const net = require('net')
 const Promise = require('bluebird')
 const _ = require('lodash')
+const { forEach } = require('lodash')
 
 function Beacon(options, name, data, cb){
 
@@ -48,11 +49,16 @@ function Beacon(options, name, data, cb){
    const peerAddress = { address: addrToIPPort(peer)[0], port: addrToIPPort(peer)[1] }
 
    c++
-   if(c != 1 && !_.find(peerAddress, peer)){
-    checkConnection(peerAddress.address, peerAddress.port).then( ()=> {c
-     peers.push(peerAddress)
+   if(c != 1){ // ignore self
+    checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
 
-     cb(true)
+     let found = peers.find(function(el) {
+      return el.address === peerAddress.address && el.port === peerAddress.port
+     })
+     if(!found){
+      peers.push(peerAddress) 
+      cb(true)
+     }
     }, err => {
      // connection was unsuccessful
     })
@@ -60,6 +66,7 @@ function Beacon(options, name, data, cb){
 
   })
  })
+
 }
 
 function checkConnection(host, port, timeout) {
