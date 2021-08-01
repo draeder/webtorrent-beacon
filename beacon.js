@@ -6,11 +6,11 @@ const Discovery = require('torrent-discovery')
 const addrToIPPort = require('addr-to-ip-port')
 const net = require('net')
 const Promise = require('bluebird')
+const _ = require('lodash')
 
-let numPeers = 0
-let b = false
+function Beacon(options, name, data, cb){
 
-function Beacon(name, data, cb){
+ let peers = []
 
  let that = this
 
@@ -21,7 +21,7 @@ function Beacon(name, data, cb){
  let buf = new Buffer.from(data)
  buf.name = name
  
- server.seed(buf, torrent => {
+ server.seed(buf, options, torrent => {
   // seeding
  })
 
@@ -39,7 +39,7 @@ function Beacon(name, data, cb){
 
  server.on('torrent', torrent => {
 
-  let opts = { infoHash: torrent.infoHash, peerId: peerId, port: 6881, dht: true }
+  let opts = { infoHash: torrent.infoHash, peerId: peerId, port: 6881 }
 
   let discovery = new Discovery(opts)
 
@@ -48,10 +48,11 @@ function Beacon(name, data, cb){
    const peerAddress = { address: addrToIPPort(peer)[0], port: addrToIPPort(peer)[1] }
 
    c++
-   if(c != 1){
-    checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
-     console.log(peerAddress)
-     cb(true, torrent.infoHash)
+   if(c != 1 && !_.find(peerAddress, peer)){
+    checkConnection(peerAddress.address, peerAddress.port).then( ()=> {c
+     peers.push(peerAddress)
+
+     cb(true)
     }, err => {
      // connection was unsuccessful
     })

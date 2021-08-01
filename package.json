@@ -1,0 +1,19 @@
+{
+  "name": "webtorrent-beacon",
+  "version": "1.0.0",
+  "description": "Create new torrent and receive a beacon when a new peer requests it",
+  "main": "beacon.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/draeder/webtorrent-beacon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/draeder/webtorrent-beacon/issues"
+  },
+  "homepage": "https://github.com/draeder/webtorrent-beacon#readme"
+}

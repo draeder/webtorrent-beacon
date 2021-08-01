@@ -1,10 +1,12 @@
 let Beacon = require('./beacon')
 
-let filename = 'my original file name'
-let data = 'my file\'s data'
+let filename = 'my file name.txt'
+let data = 'my file data'
 
-let beacon = new Beacon(filename, data, (beacon, infoHash) => {
- console.log('My torrent has a new peer:', beacon, infoHash) // true
+let opts = {announce: ['ws://localhost:3001']}
+
+let beacon = new Beacon(opts, filename, data, beacon => {
+ console.log('Torrent has a new peer:', beacon) // true
 })
 
 beacon.infoHash(infoHash => {
