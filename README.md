@@ -4,7 +4,7 @@ Create new torrent and receive a beacon when a new peer requests it
 ##
 Webtorrent-beacon instantly sends a beacon when a new peer requests your torrent. It does't care whether or not the new peer has actually connected to the torrent.
 
-This softwar is in alpha state and has not been audited for security. If you find any issues, please submit a PR!
+This software is in alpha state and has not been audited for security. If you find any issues, please submit a PR!
 
 
 ## Install
