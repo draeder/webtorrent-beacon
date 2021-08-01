@@ -12,6 +12,8 @@ let b = false
 
 function Beacon(name, data, cb){
 
+ let that = this
+
  let peerId = sha(Math.random().toString())
 
  let server = new WebTorrent()
@@ -23,9 +25,19 @@ function Beacon(name, data, cb){
   // seeding
  })
 
- server.on('torrent', torrent => {
+ this.infoHash = (cb) => {
+  server.on('torrent', torrent => {
+   cb(torrent.infoHash)
+  })
+ }
 
-  console.log(torrent.infoHash)
+ this.magnet = (cb) => {
+  server.on('torrent', torrent => {
+   cb(torrent.magnetURI)
+  })
+ }
+
+ server.on('torrent', torrent => {
 
   let opts = { infoHash: torrent.infoHash, peerId: peerId, port: 6881, dht: true }
 
@@ -34,10 +46,12 @@ function Beacon(name, data, cb){
   let c = 0
   discovery.on('peer', function (peer) {
    const peerAddress = { address: addrToIPPort(peer)[0], port: addrToIPPort(peer)[1] }
+
    c++
    if(c != 1){
     checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
-     cb(true)
+     console.log(peerAddress)
+     cb(true, torrent.infoHash)
     }, err => {
      // connection was unsuccessful
     })
