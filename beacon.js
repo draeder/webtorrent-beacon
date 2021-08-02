@@ -75,7 +75,6 @@ function Beacon(options, name, data, cb){
        if (index !== -1) {
            peers.splice(index, 1)
        }
-       console.log(peers.length)
       })
      }
     })
