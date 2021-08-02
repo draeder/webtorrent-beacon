@@ -49,7 +49,9 @@ function Beacon(options, name, data, cb){
 
    c++
    if(c === 1){
+
     peers.push(peerAddress) // add self to peers and ignore
+    
    } else {
     checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
 
@@ -64,6 +66,20 @@ function Beacon(options, name, data, cb){
      // connection was unsuccessful
     })
    }
+
+   setInterval(()=>{
+    peers.forEach(peer => {
+     if(peer != peers[0]){
+      checkConnection(peer.address, peer.port).then( ()=> {}, err => {
+       let index = peers.indexOf(peer)
+       if (index !== -1) {
+           peers.splice(index, 1)
+       }
+       console.log(peers.length)
+      })
+     }
+    })
+   }, 3000)
 
   })
  })
