@@ -3,7 +3,7 @@ let Beacon = require('./beacon')
 let filename = 'my file name.txt'
 let data = 'my file data'
 
-let opts = {}//{announce: ['ws://localhost:3001']} // webtorrent options
+let opts = {announce: ['ws://localhost:3001']} // webtorrent options
 
 let beacon = new Beacon(opts, filename, data, beacon => {
  console.log('Torrent has a new peer:', beacon) // true

@@ -11,11 +11,9 @@ function Beacon(options, name, data, cb){
 
  let peers = []
 
- let that = this
-
  let peerId = sha(Math.random().toString())
 
- let server = new WebTorrent()
+ let server = new WebTorrent(options)
 
  let buf = new Buffer.from(data)
  buf.name = name
@@ -49,10 +47,10 @@ function Beacon(options, name, data, cb){
 
    c++
    if(c === 1){
-
     peers.push(peerAddress) // add self to peers and ignore
-    
-   } else {
+    cb(true)
+   } 
+   else {
     checkConnection(peerAddress.address, peerAddress.port).then( ()=> {
 
      let found = peers.find(function(el) {
@@ -73,12 +71,13 @@ function Beacon(options, name, data, cb){
       checkConnection(peer.address, peer.port).then( ()=> {}, err => {
        let index = peers.indexOf(peer)
        if (index !== -1) {
-           peers.splice(index, 1)
+        peers.splice(index, 1)
+        //cb(false)
        }
       })
      }
     })
-   }, 3000)
+   }, 15500)
 
   })
  })

@@ -1,6 +1,6 @@
 {
   "name": "webtorrent-beacon",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Create new torrent and receive a beacon when a new peer requests it",
   "main": "beacon.js",
   "scripts": {
