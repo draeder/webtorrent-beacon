@@ -72,12 +72,12 @@ function Beacon(options, name, data, cb){
        let index = peers.indexOf(peer)
        if (index !== -1) {
         peers.splice(index, 1)
-        //cb(false)
+        cb(false)
        }
       })
      }
     })
-   }, 15500)
+   }, 10500)
 
   })
  })

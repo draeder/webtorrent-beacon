@@ -6,7 +6,15 @@ let data = 'my file data'
 let opts = {} // webtorrent options
 
 let beacon = new Beacon(opts, filename, data, beacon => {
- console.log('Torrent has a new peer:', beacon) // true
+
+ if(beacon){
+  console.log('Torrent has a new interested peer:', beacon) // true
+ }
+
+ if(!beacon){
+  console.log('An interested peer has left')
+ }
+
 })
 
 beacon.infoHash(infoHash => {
