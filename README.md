@@ -45,7 +45,7 @@ beacon.magnet(magnet => {
 ```
 
 ## API
-### `opts = {// Webtorrent options}`
+### `opts = {} // Webtorrent options`
 Refer to the [webtorrent API](https://webtorrent.io/docs) for options that can be passed in.
 
 ### `beacon.infoHash(callback)`
